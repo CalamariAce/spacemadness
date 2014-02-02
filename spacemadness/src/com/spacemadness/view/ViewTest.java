@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.spacemadness.model.Planet;
 import com.spacemadness.model.Ship;
 import com.spacemadness.model.World;
 
@@ -20,7 +21,7 @@ public class ViewTest {
 			Ship s = new Ship();
 			s.x = 4500 + (2200 - r.nextFloat() * 4400);
 			s.y = 4500 + (2200 - r.nextFloat() * 4400);
-			;
+
 			// s.vx = 0.5f - r.nextFloat();
 			// s.vy = 0.5f - r.nextFloat();
 			s.theta = (float) (r.nextFloat() * Math.PI * 2);
@@ -28,8 +29,12 @@ public class ViewTest {
 			w.getShips().add(s);
 		}
 
-		w.init();
+		Planet p = new Planet(700);
+		p.x = 4500;
+		p.y = 4500;
+		w.getPlanets().add(p);
 
+		w.init();
 		return w;
 	}
 
@@ -44,5 +49,4 @@ public class ViewTest {
 		jf.pack();
 		jf.setVisible(true);
 	}
-
 }

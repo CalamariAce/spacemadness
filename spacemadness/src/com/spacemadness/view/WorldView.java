@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 
 import com.spacemadness.model.Camera;
 import com.spacemadness.model.Entity;
+import com.spacemadness.model.Planet;
 import com.spacemadness.model.Ship;
 import com.spacemadness.model.World;
 
@@ -222,7 +223,6 @@ public class WorldView extends JPanel {
 					Thread.sleep(15);
 				} catch (Exception ex) {
 				}
-				;
 			}
 		}
 	}
@@ -359,6 +359,10 @@ public class WorldView extends JPanel {
 
 		drawBackground(G, m_camera);
 
+		for (Planet p : m_world.getPlanets()) {
+			p.draw(G, m_camera);
+		}
+		
 		for (Ship s : m_world.getShips()) {
 			s.draw(G, m_camera);
 		}

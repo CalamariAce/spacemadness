@@ -52,8 +52,8 @@ public class Ship extends Entity {
 			cx += outline[i][0];
 			cy += outline[i][1];
 		}
-		cx = cx/outline.length;
-		cy = cy/outline.length;
+		cx = cx / outline.length;
+		cy = cy / outline.length;
 		
 		m_outline = new Path2D.Float();
 		int maxr = 0;

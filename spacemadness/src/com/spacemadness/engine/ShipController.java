@@ -43,7 +43,8 @@ public class ShipController {
 					e.setHeading(null);
 				}
 
-				if (Geom.dot(v, new Point2D.Float((float) Math.cos(e.theta),
+				if (Geom.dot(v, new Point2D.Float(
+						(float) Math.cos(e.theta),
 				    (float) Math.sin(e.theta))) < 0) {
 					e.theta += dThetaMax;
 				} else {

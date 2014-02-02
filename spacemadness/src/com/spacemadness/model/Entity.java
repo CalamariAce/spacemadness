@@ -13,16 +13,17 @@ import com.spacemadness.view.SelectionCompass;
 public class Entity extends Point2D.Float {
 	private static final long serialVersionUID = 1L;
 
-	// all world coords
+	// Used for drawing.
+	protected static SelectionCompass s_compass = new SelectionCompass();
+
+	// All in world coords.
 	public float theta;
-
+	// Radius of the entity.
 	public int r;
-
+	// Velocity of the entity.
 	public float vx, vy;
 
-	protected static SelectionCompass s_compas = new SelectionCompass();
-
-	// heading of entity in world coordinates
+	// A point where the entity is trying to move to (in world coordinates).
 	protected Point2D.Float.Float m_heading = null;
 
 	// drawing options
@@ -38,7 +39,7 @@ public class Entity extends Point2D.Float {
 
 	public void drawSelectionCompass(Graphics2D G, Camera camera) {
 		G.setColor(Color.green);
-		s_compas.draw(G, camera);
+		s_compass.draw(G, camera);
 	}
 
 	public void setHeading(Point2D.Float heading) {
@@ -68,7 +69,8 @@ public class Entity extends Point2D.Float {
 
 		Point2D.Float relativeHeading = null;
 		if (m_showHeading && (m_heading != null)) {
-			relativeHeading = new Point2D.Float.Float(m_heading.x - x,
+			relativeHeading = new Point2D.Float.Float(
+					m_heading.x - x,
 					m_heading.y - y);
 
 			// absolute drawing in the screen coordinate system
@@ -87,7 +89,7 @@ public class Entity extends Point2D.Float {
 		G.setTransform(drawTransform);
 
 		if (m_showHeading && (m_heading != null)) {
-			s_compas.drawHeading(relativeHeading, G, camera);
+			s_compass.drawHeading(relativeHeading, G, camera);
 		}
 
 		// drawing in the object relative coordinate system

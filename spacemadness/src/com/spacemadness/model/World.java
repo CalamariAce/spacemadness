@@ -9,8 +9,9 @@ public class World {
 
 	private int m_MaxY, m_MaxX;
 
-	private List<Ship> m_ships = new ArrayList<Ship>();
-	private List<Resource> m_resources = new ArrayList<Resource>();
+	private final List<Ship> m_ships = new ArrayList<Ship>();
+	private final List<Planet> m_planets = new ArrayList<Planet>();
+	private final List<Resource> m_resources = new ArrayList<Resource>();
 
 	private ShipController m_controller;
 
@@ -29,16 +30,12 @@ public class World {
 		return m_ships;
 	}
 
-	public void setShips(List<Ship> ships) {
-		m_ships = ships;
+	public List<Planet> getPlanets() {
+		return m_planets;
 	}
-
+	
 	public List<Resource> getResources() {
 		return m_resources;
-	}
-
-	public void setResources(List<Resource> resources) {
-		m_resources = resources;
 	}
 
 	public int getMaxY() {
