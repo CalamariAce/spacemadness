@@ -23,6 +23,7 @@ public class ShipController {
 	}
 
 	public void update(long nowTime) {
+		// TODO: probably we should do something else here.
 		if ((m_dt = nowTime - m_lastUpdate) < m_updateFreq) {
 			return;
 		}

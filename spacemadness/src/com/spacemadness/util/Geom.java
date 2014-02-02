@@ -5,20 +5,24 @@ import java.awt.geom.Point2D;
 
 import com.spacemadness.model.Entity;
 
+/**
+ * Maps between viewport and world coordinates.
+ * 
+ */
 public class Geom {
 	
 	public final static Point2D.Float ORIGIN = new Point2D.Float(0,0);
 	
 	/**
-	 * @param vx View center (world coord)
+	 * @param Vx View center (world coord)
 	 * @param w screen coord
 	 * @param W max screen coord (h or w)
 	 * @param scale drawing scale
 	 * 
 	 * @return
 	 */
-	public static final float screenToWorld(int w, int W, int vx, float scale) {
-		return vx + (w - W/2) / scale;
+	public static final float screenToWorld(int w, int W, int Vx, float scale) {
+		return Vx + (w - W / 2) / scale;
 	}
 	
 	/**
@@ -39,20 +43,19 @@ public class Geom {
 	
 	public static void normalize(Point2D.Float x) {
 		double r = x.distance(ORIGIN);
-		x.x = (float)(x.x/r);
-		x.y = (float)(x.y/r);
+		x.x = (float)(x.x / r);
+		x.y = (float)(x.y / r);
 	}
 	
 	/**
-	 * 
-	 * @param x
-	 * @param W
-	 * @param vx
-	 * @param scale
-	 * @return
+	 * @param x a world coordinate
+	 * @param W width of the window
+	 * @param Vx the center of the viewport  
+	 * @param scale zoom level
+	 * @return a world coordinate
 	 */
-	public static final int worldToScreen(float x, int W, float vx, float scale) {
-		return (int)((x - vx)*scale) + W/2;
+	public static final int worldToScreen(float x, int W, float Vx, float scale) {
+		return (int)((x - Vx) * scale) + W/2;
 	}
 	
 	public static final boolean intersects(int x, int r, int a, int b) {
