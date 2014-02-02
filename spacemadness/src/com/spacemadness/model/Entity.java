@@ -10,8 +10,7 @@ import java.text.NumberFormat;
 
 import com.spacemadness.view.SelectionCompass;
 
-public class Entity extends Point2D.Float {
-	private static final long serialVersionUID = 1L;
+public class Entity {
 
 	// Used for drawing.
 	protected static SelectionCompass s_compass = new SelectionCompass();
@@ -20,6 +19,8 @@ public class Entity extends Point2D.Float {
 	public float theta;
 	// Radius of the entity.
 	public int r;
+	// Position
+	public float x, y;
 	// Velocity of the entity.
 	public float vx, vy;
 	// External forces acting on the entity.

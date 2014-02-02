@@ -7,8 +7,6 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
 public class Ship extends Entity {
-	private static final long serialVersionUID = 1L;
-	
 	private Path2D m_outline;
 
 	public Ship() {
@@ -83,5 +81,4 @@ public class Ship extends Entity {
 		
 		postDraw(G, camera);
 	}
-	
 }

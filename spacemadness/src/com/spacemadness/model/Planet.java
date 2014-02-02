@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
 public class Planet extends Entity {
-  private static final long serialVersionUID = 1L;
 
 	Ellipse2D.Float m_outline;
 	

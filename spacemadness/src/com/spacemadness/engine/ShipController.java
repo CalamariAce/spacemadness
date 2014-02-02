@@ -25,7 +25,7 @@ public class ShipController {
 
 	public void applyGravity(Entity e) {
 		float fx = 0, fy = 0;
-		final float G = -0f;
+		final float G = -11f;
 		
 		for (Planet p : m_world.getPlanets()) {
 			float dx = (e.x - p.x);
@@ -50,7 +50,6 @@ public class ShipController {
 		double accMax = 0.01f;
 
 		float dt = 1;
-		Point2D.Float dr = new Point2D.Float();
 		Point2D.Float v = new Point2D.Float();
 		for (Entity e : m_world.getShips()) {
 			applyGravity(e);
@@ -60,6 +59,7 @@ public class ShipController {
 			// If a ship is trying to move to a heading -- it will
 			// rotate to face that point, and apply thrust in that direction.
 			if (heading != null) {
+				Point2D.Float dr = new Point2D.Float();
 				Geom.subtract(heading, new Point2D.Float(e.x, e.y), dr);
 				if (dr.distance(0, 0) < 10) {
   				// If we are almost at our destination, stop trying to get there.
@@ -70,7 +70,7 @@ public class ShipController {
 				float dThetaHeading = Geom.dot(dr, new Point2D.Float(
 						(float) Math.cos(e.theta), 
 						(float) Math.sin(e.theta)));
-				if (dThetaHeading < 0) { // we might overrotate by a bit.
+				if (dThetaHeading < 0) { // we might over-rotate by a bit.
 					e.theta += dThetaMax * dt;
 				} else {
 					e.theta -= dThetaMax * dt;
@@ -78,8 +78,8 @@ public class ShipController {
 
 				// Apply a force
 				float thrust = 1;
-				e.fx -= (float) (Math.cos(e.theta) * thrust);
-				e.fy -= (float) (Math.sin(e.theta) * thrust);
+				e.fx -= (float) (Math.sin(e.theta) * thrust);
+				e.fy += (float) (Math.cos(e.theta) * thrust);
 			}
 			
 			// Acceleration
@@ -94,8 +94,8 @@ public class ShipController {
 			e.vy = v.y;
 
 			// Update position
-			e.x += v.x + dt;
-			e.y += v.y + dt;
+			e.x += e.vx * dt;
+			e.y += e.vy * dt;
 		}
 
 		m_frameNumber++;
