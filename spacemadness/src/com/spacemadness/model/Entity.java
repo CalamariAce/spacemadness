@@ -22,6 +22,8 @@ public class Entity extends Point2D.Float {
 	public int r;
 	// Velocity of the entity.
 	public float vx, vy;
+	// External forces acting on the entity.
+	public float fx, fy;
 
 	// A point where the entity is trying to move to (in world coordinates).
 	protected Point2D.Float.Float m_heading = null;

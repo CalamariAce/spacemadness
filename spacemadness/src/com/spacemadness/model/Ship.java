@@ -10,7 +10,7 @@ public class Ship extends Entity {
 	private static final long serialVersionUID = 1L;
 	
 	private Path2D m_outline;
-	
+
 	public Ship() {
 		
 		// basic fighter, 15 meters long

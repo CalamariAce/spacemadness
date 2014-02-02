@@ -3,6 +3,7 @@ package com.spacemadness.engine;
 import java.awt.geom.Point2D;
 
 import com.spacemadness.model.Entity;
+import com.spacemadness.model.Planet;
 import com.spacemadness.model.World;
 import com.spacemadness.util.Geom;
 
@@ -22,6 +23,22 @@ public class ShipController {
 		m_world = w;
 	}
 
+	public void applyGravity(Entity e) {
+		float fx = 0, fy = 0;
+		final float G = -0f;
+		
+		for (Planet p : m_world.getPlanets()) {
+			float dx = (e.x - p.x);
+			float dy = (e.y - p.y);
+
+			float rsq = dx*dx + dy*dy;
+			fx += G * dx / (rsq + 1);
+			fy += G * dy / (rsq + 1);
+		}
+		e.fx = fx;
+		e.fy = fy;
+	}
+	
 	public void update(long nowTime) {
 		// TODO: probably we should do something else here.
 		if ((m_dt = nowTime - m_lastUpdate) < m_updateFreq) {
@@ -29,43 +46,56 @@ public class ShipController {
 		}
 
 		float dThetaMax = 0.01f;
-		float vMax = 5.1f;
+		float vMax = 2.1f;
 		double accMax = 0.01f;
 
-		// Test commit.
+		float dt = 1;
+		Point2D.Float dr = new Point2D.Float();
+		Point2D.Float v = new Point2D.Float();
 		for (Entity e : m_world.getShips()) {
+			applyGravity(e);
+
 			Point2D.Float heading = e.getHeading();
 
+			// If a ship is trying to move to a heading -- it will
+			// rotate to face that point, and apply thrust in that direction.
 			if (heading != null) {
-				Point2D.Float v = new Point2D.Float();
-				Geom.subtract(heading, new Point2D.Float(e.x, e.y), v);
-				if (v.distance(0, 0) < 10) {
+				Geom.subtract(heading, new Point2D.Float(e.x, e.y), dr);
+				if (dr.distance(0, 0) < 10) {
+  				// If we are almost at our destination, stop trying to get there.
 					e.setHeading(null);
 				}
 
-				if (Geom.dot(v, new Point2D.Float(
-						(float) Math.cos(e.theta),
-				    (float) Math.sin(e.theta))) < 0) {
-					e.theta += dThetaMax;
+				// Determine the angle to rotate twords, and rotate.
+				float dThetaHeading = Geom.dot(dr, new Point2D.Float(
+						(float) Math.cos(e.theta), 
+						(float) Math.sin(e.theta)));
+				if (dThetaHeading < 0) { // we might overrotate by a bit.
+					e.theta += dThetaMax * dt;
 				} else {
-					e.theta -= dThetaMax;
+					e.theta -= dThetaMax * dt;
 				}
 
-				double vCur = e.distance(0, 0) + accMax;
-				if (vCur > vMax)
-					vCur = vMax;
-				e.vx = -(float) (Math.sin(e.theta) * vCur);
-				e.vy = (float) (Math.cos(e.theta) * vCur);
-			} else {
-				double vsqr = e.vx * e.vx + e.vy * e.vy;
-				if (vsqr > 0) {
-
-				} else {
-
-				}
+				// Apply a force
+				float thrust = 1;
+				e.fx -= (float) (Math.cos(e.theta) * thrust);
+				e.fy -= (float) (Math.sin(e.theta) * thrust);
 			}
-			e.x += e.vx;
-			e.y += e.vy;
+			
+			// Acceleration
+			e.vx += e.fx * dt;
+			e.vy += e.fy * dt;
+
+			// Clamp Velocity
+			v.x = e.vx;
+			v.y = e.vy;
+			Geom.clamp(v, vMax);
+			e.vx = v.x;
+			e.vy = v.y;
+
+			// Update position
+			e.x += v.x + dt;
+			e.y += v.y + dt;
 		}
 
 		m_frameNumber++;

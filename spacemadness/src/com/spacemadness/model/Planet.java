@@ -17,7 +17,7 @@ public class Planet extends Entity {
 	public void draw(Graphics2D G, Camera camera) {
 		preDraw(G, camera);
 		
-		G.setColor(Color.green);
+		G.setColor(Color.DARK_GRAY);
 		G.fill(m_outline);
 		G.setColor(Color.yellow);
 		G.draw(m_outline);

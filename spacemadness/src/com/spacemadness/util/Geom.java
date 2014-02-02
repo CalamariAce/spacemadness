@@ -32,7 +32,7 @@ public class Geom {
 	 * @param b
 	 * @param result
 	 */
-	public static void subtract(Point2D.Float a, Point2D.Float b, Point2D.Float result) {
+	public static void subtract(final Point2D.Float a, final Point2D.Float b, Point2D.Float result) {
 		result.x = a.x - b.x;
 		result.y = a.y - b.y;
 	}
@@ -46,7 +46,15 @@ public class Geom {
 		x.x = (float)(x.x / r);
 		x.y = (float)(x.y / r);
 	}
-	
+
+	public static void clamp(Point2D.Float x, float len) {
+		double r = x.distance(ORIGIN);
+		if (r > len) {
+			x.x = (float)(x.x * len / r);
+			x.y = (float)(x.y * len / r);
+		}
+	}
+
 	/**
 	 * @param x a world coordinate
 	 * @param W width of the window
