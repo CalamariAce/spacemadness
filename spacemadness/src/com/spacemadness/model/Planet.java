@@ -13,14 +13,11 @@ public class Planet extends Entity {
 		this.r = r;
 	}
 
-	public void draw(Graphics2D G, Camera camera) {
-		preDraw(G, camera);
-		
+	@Override
+  protected void drawEntity(Graphics2D G, Camera camera) {
 		G.setColor(Color.DARK_GRAY);
 		G.fill(m_outline);
 		G.setColor(Color.yellow);
 		G.draw(m_outline);
-		
-		postDraw(G, camera);
-	}
+  }
 }

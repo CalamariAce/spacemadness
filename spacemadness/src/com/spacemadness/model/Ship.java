@@ -71,14 +71,10 @@ public class Ship extends Entity {
 		m_outline.closePath();
 	}
 	
-	public void draw(Graphics2D G, Camera camera) {
-		preDraw(G, camera);
-		
+	public void drawEntity(Graphics2D G, Camera camera) {
 		G.setColor(Color.orange);
 		G.fill(m_outline);
 		G.setColor(Color.yellow);
 		G.draw(m_outline);
-		
-		postDraw(G, camera);
 	}
 }

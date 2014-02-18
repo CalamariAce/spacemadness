@@ -10,7 +10,7 @@ import java.text.NumberFormat;
 
 import com.spacemadness.view.SelectionCompass;
 
-public class Entity {
+public abstract class Entity {
 
 	// Used for drawing.
 	protected static SelectionCompass s_compass = new SelectionCompass();
@@ -58,6 +58,14 @@ public class Entity {
 	}
 
 	private static NumberFormat fmt = new DecimalFormat("#.###");
+
+	public final void draw(Graphics2D G, Camera camera) {
+		preDraw(G, camera);
+		drawEntity(G, camera);
+		postDraw(G, camera);
+	}
+
+	protected abstract void drawEntity(Graphics2D G, Camera camera);
 
 	/**
 	 * Saves the pre-call state of the Grapics2D.AffineTransform in this entity
