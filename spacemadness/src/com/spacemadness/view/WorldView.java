@@ -324,8 +324,8 @@ public class WorldView extends JPanel {
 			else
 				G.setColor(minorColor);
 
-			G.drawLine((int) p.getX(), viewRect.y, (int) p.getX(), viewRect.y
-			    + viewRect.height);
+			G.drawLine((int) p.getX(), viewRect.y, 
+					       (int) p.getX(), viewRect.y + viewRect.height);
 
 			if (major || !smallGrids)
 				G.drawString("" + i * gridSpacing, (int) p.getX(), viewRect.y + 30);
