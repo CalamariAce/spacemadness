@@ -60,14 +60,13 @@ public class Entity {
 	private static NumberFormat fmt = new DecimalFormat("#.###");
 
 	/**
+	 * Saves the pre-call state of the Grapics2D.AffineTransform in this entity
+	 * so it can later be restored by postDraw().
 	 * 
-	 * @param G
-	 * @param viewRect
-	 *            screen rectangle in
-	 * @param scale
-	 *            drawing scale
+	 * @param G a Grapihcs2D object.
+	 * @param camera 
 	 */
-	public void preDraw(Graphics2D G, Camera camera) {
+	protected void preDraw(Graphics2D G, Camera camera) {
 		saveTransform = G.getTransform();
 
 		Point2D.Float relativeHeading = null;
@@ -104,8 +103,7 @@ public class Entity {
 		}
 	}
 
-	public void postDraw(Graphics2D G, Camera camera) {
+	protected void postDraw(Graphics2D G, Camera camera) {
 		G.setTransform(saveTransform);
 	}
-
 }

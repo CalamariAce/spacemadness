@@ -65,7 +65,7 @@ public class SelectionCompass {
 		G.setTransform(tmp);
 	}
 	
-	// draws the compas in the coordinate system of the entity
+	// draws the compass in the coordinate system of the entity
 	public void draw(Graphics2D G, Camera camera) {
 		G.setColor(Color.green);
 		

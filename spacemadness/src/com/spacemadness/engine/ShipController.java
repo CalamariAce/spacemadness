@@ -77,7 +77,7 @@ public class ShipController {
 				}
 
 				// Apply a force
-				float thrust = 1;
+				float thrust = 20;
 				e.fx -= (float) (Math.sin(e.theta) * thrust);
 				e.fy += (float) (Math.cos(e.theta) * thrust);
 			}
