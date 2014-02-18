@@ -13,6 +13,13 @@ public class Planet extends Entity {
 		this.r = r;
 	}
 
+	public static Planet create(float x, float y, int radius) {
+		Planet p = new Planet(radius);
+		p.x = x;
+		p.y = y;
+		return p;
+	}
+	
 	@Override
   protected void drawEntity(Graphics2D G, Camera camera) {
 		G.setColor(Color.DARK_GRAY);

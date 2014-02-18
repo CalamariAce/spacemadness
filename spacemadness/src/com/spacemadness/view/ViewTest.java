@@ -9,6 +9,7 @@ import com.spacemadness.model.Planet;
 import com.spacemadness.model.Ship;
 import com.spacemadness.model.World;
 
+// Simple main method that builds a simple game model and views it.
 public class ViewTest {
 
 	public static World createTestWorld() {
@@ -29,15 +30,14 @@ public class ViewTest {
 			w.getShips().add(s);
 		}
 
-		Planet p = new Planet(700);
-		p.x = 4500;
-		p.y = 4500;
-		w.getPlanets().add(p);
+		w.getPlanets().add(Planet.create(4500.0f, 4500.0f, 700));
+		w.getPlanets().add(Planet.create(5500.0f, 5500.0f, 300));
 
 		w.init();
 		return w;
 	}
 
+	
 	public static void main(String args[]) throws Exception {
 		WorldView wv = new WorldView();
 		wv.setWorld(createTestWorld());
