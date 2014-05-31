@@ -1,0 +1,11 @@
+<entity>
+  <component>
+      <outline x="-200" y="-100"/>
+      <outline x="-200" y="100"/>
+      <outline x="-100" y="150"/>
+      <outline x="-100" y="1000"/>
+      <outline x="100" y="1000"/>
+      <outline x="100" y="-200"/>
+      <outline x="-100" y="-200"/>
+  </component>
+</entity>

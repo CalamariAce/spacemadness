@@ -19,6 +19,11 @@ public class Ship extends Entity {
 		setOutline(outline);
 	}
 	
+	public Ship(int [][]outline) {
+		setOutline(outline);
+	}
+
+	
 	/**
 	 * @param point click point in world coordinates
 	 * @param camera
