@@ -162,8 +162,25 @@ public class WorldView extends JPanel {
 		}
 	}
 
+	private void sendText() {
+	}
+	
+	boolean acceptingText = false;
+	String message = "";
+	
 	private void doKeyPress(KeyEvent evt) {
+		if (acceptingText && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+			message = message + evt.getKeyChar();
+		}
+		
 		switch (evt.getKeyCode()) {
+		case KeyEvent.VK_ENTER:
+			if (acceptingText) {
+				sendText();
+			}
+			acceptingText = !acceptingText;
+			message = "";
+			break;
 		case 'm':
 		case 'M':
 			if (!m_overlay && m_currentFocusOwner != null) {
@@ -177,7 +194,9 @@ public class WorldView extends JPanel {
 			}
 			break;
 		case KeyEvent.VK_ESCAPE:
-			if (m_overlay) {
+			if (acceptingText) {
+				acceptingText = false;
+			} else if (m_overlay) {
 				removeMouseMotionListener(m_headingIllustrator);
 				m_currentFocusOwner.setHeading(m_saveHeading);
 				m_currentFocusOwner.setShowHeading(false);
@@ -371,6 +390,10 @@ public class WorldView extends JPanel {
 			G.setColor(Color.cyan);
 			G.drawString("" + m_renderThread.getFPS(System.currentTimeMillis()), 5,
 			    30);
+		}
+		
+		if (!message.isEmpty()) {
+			G.drawString(message, 5, 25);
 		}
 	}
 }

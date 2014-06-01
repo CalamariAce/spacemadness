@@ -65,7 +65,7 @@ public class ShipComponents {
 			return y;
 		}
 	}
-	
+
 	@XmlRootElement
 	public static class Component {
 		List<Point> outline = new ArrayList<>();

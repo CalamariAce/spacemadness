@@ -2,15 +2,18 @@ package com.spacemadness.view;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.spacemadness.engine.Server;
 import com.spacemadness.model.Planet;
 import com.spacemadness.model.Ship;
 import com.spacemadness.model.ShipComponents;
 import com.spacemadness.model.World;
+import com.spacemadness.util.Flags;
 
 // Simple main method that builds a simple game model and views it.
 public class ViewTest {
@@ -47,9 +50,27 @@ public class ViewTest {
 		w.init();
 		return w;
 	}
-
+	
+	private static List<String> flags;
+	public static String getFlag(String flagName) {
+		int index = flags.indexOf(flagName);
+		if (index > -1) {
+			return flags.get(index + 1);
+		}
+		return null;
+	}
 	
 	public static void main(String args[]) throws Exception {
+		Flags.parse(args);
+
+		if (Flags.isSet("--host")) {
+			System.out.println("Starting server...");
+			Server s = Server.create();
+		} else if (Flags.isSet("--server")) {
+			String host = Flags.getFlag("--server");
+			
+		}
+
 		WorldView wv = new WorldView();
 		wv.setWorld(createTestWorld());
 		wv.setPreferredSize(new Dimension(500, 500));
